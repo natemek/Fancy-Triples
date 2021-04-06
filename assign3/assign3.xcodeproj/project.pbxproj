@@ -11,6 +11,9 @@
 		0DAC016326151C750083A59E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAC016226151C750083A59E /* ContentView.swift */; };
 		0DAC016526151C770083A59E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DAC016426151C770083A59E /* Assets.xcassets */; };
 		0DAC016826151C770083A59E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DAC016726151C770083A59E /* Preview Assets.xcassets */; };
+		0DBF3B07261CDF7C0031D2F2 /* Triples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBF3B06261CDF7C0031D2F2 /* Triples.swift */; };
+		0DBF3B0B261CE09E0031D2F2 /* model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBF3B0A261CE09E0031D2F2 /* model.swift */; };
+		0DBF3B0E261CE16F0031D2F2 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DBF3B0D261CE16F0031D2F2 /* Tile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +23,9 @@
 		0DAC016426151C770083A59E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0DAC016726151C770083A59E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0DAC016926151C770083A59E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0DBF3B06261CDF7C0031D2F2 /* Triples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triples.swift; sourceTree = "<group>"; };
+		0DBF3B0A261CE09E0031D2F2 /* model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = model.swift; sourceTree = "<group>"; };
+		0DBF3B0D261CE16F0031D2F2 /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +60,9 @@
 			children = (
 				0DAC016026151C750083A59E /* assign3App.swift */,
 				0DAC016226151C750083A59E /* ContentView.swift */,
+				0DBF3B06261CDF7C0031D2F2 /* Triples.swift */,
+				0DBF3B0A261CE09E0031D2F2 /* model.swift */,
+				0DBF3B0D261CE16F0031D2F2 /* Tile.swift */,
 				0DAC016426151C770083A59E /* Assets.xcassets */,
 				0DAC016926151C770083A59E /* Info.plist */,
 				0DAC016626151C770083A59E /* Preview Content */,
@@ -139,7 +148,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DAC016326151C750083A59E /* ContentView.swift in Sources */,
+				0DBF3B07261CDF7C0031D2F2 /* Triples.swift in Sources */,
+				0DBF3B0E261CE16F0031D2F2 /* Tile.swift in Sources */,
 				0DAC016126151C750083A59E /* assign3App.swift in Sources */,
+				0DBF3B0B261CE09E0031D2F2 /* model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

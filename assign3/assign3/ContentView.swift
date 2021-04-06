@@ -64,28 +64,28 @@ struct ScoreView: View {
     }
 }
 
-struct BoxView: View {
+struct TileView: View {
     
-    var num: Int
+    var tile: Tile?
     
     var body: some View {
-        if num == 0 {
+        if tile == nil {
             Text("")
                 .frame(width: 80, height: 80)
                 .border(Color.gray, width: 5)
                 .background(Color.white)
-        } else if num == 1 {
-            Text("\(num)")
+        } else if tile!.val == 1 {
+            Text("\(tile!.val)")
                 .frame(width: 80, height: 80)
                 .border(Color.gray, width: 5)
                 .background(Color.blue)
-        } else if num == 2 {
-            Text("\(num)")
+        } else if tile!.val == 2 {
+            Text("\(tile!.val)")
                 .frame(width: 80, height: 80)
                 .border(Color.gray, width: 5)
                 .background(Color.red)
         } else {
-            Text("\(num)")
+            Text("\(tile!.val)")
                 .frame(width: 80, height: 80)
                 .border(Color.gray, width: 5)
                 .background(Color.yellow)
@@ -95,14 +95,14 @@ struct BoxView: View {
 
 struct GameBoard: View {
     
-    var board: [[Int]]
+    var board: [[Tile?]]
     
     var body: some View {
         VStack{
             ForEach(board, id:\.self) {
                 row in HStack(spacing: 0) {
-                    ForEach(row, id:\.self) {
-                        val in BoxView(num: val)
+                    ForEach(row, id:\.self) { tile in
+                        TileView(tile: tile)
                     }
                 }
             }

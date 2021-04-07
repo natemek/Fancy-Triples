@@ -83,7 +83,7 @@ You may revise the spawn() method in Model or related method in View so that eac
 ## Task 3: Animation
 You need to implement "tile moving animation" to show the movements of tiles while clicking the direction buttons. 
 
-Hint: You can implement the animation of tile movement by adding animation keywords at 2 locations of your implementation:
+Hint: You can implement the animation of tile movement by adding animation keywords at 2 locations of your implementation. You may also need to use .offset with variables to determine the start and end location of each tile. Example:
 
 1. tileView:
 ```
@@ -92,27 +92,27 @@ ForEach (0..<tiles.count, id: \.self) { i in
         .animation(.easeInOut(duration: 1))
 ```
 2. Button:
-```Button (action: withAnimation
+```
+Button (action: withAnimation
 {movingUp}) {
     Text("Up")
 }
 ```
 
-There are plenty of ways to make animations in SwiftUI, you do not have to implement the same way as we did here. We will not inspect your code for this project, but only check your UIView.
+There are plenty of ways to make animations in SwiftUI, you do not have to implement the same way as we did here. We will not inspect your code for this project, but only check your View.
 
 ## Task 4: End of Game
 In the last project, we never handled a situation when our game failed or ended. We should implement a Boolean variable `isDone` in model.swift, and a method `func isGameDone()` to check if the game is ended.
 
 When will the game end?
 
-1. There is no any empty tile or possible moves of the tiles in the board.
+1. When there is no any empty tile or possible moves of the tiles in the board.
 You should handle the situation where some of the directions are not executable where some other directions are executable. In this situation, clicking the un-executable direction button will do nothing. Only when ALL 4 directions are not executable, the game is ended. 
 
-
-2. We click the `New Game` button.
+2. When we click the `New Game` button.
 Every time we click the `New Game` button, the current game will end.
 
-What happend after the game ends?
+What will happen after the game ends?
 
 A window should pop up to show the final score of current play. You can use `ZStack` to implement this view. By clicking the "Close" button should start a new game. Every time a game ends, the score should be recorded, this will be discussed in later task.
 
@@ -170,11 +170,21 @@ You should:
 
 ## Task 8: Implement the *About* Page
 It doesn't have to be like mine, and it doesn't have to use gestures, but it
-should be fancy. Use `UIBezierPath` or `CGPath` to draw something a diagram, make a little
+should be fancy. Use `Path.addCurve()` or `CGPath` to draw something a diagram, make a little
 mini-game or animation, be creative! 
 
 ## Task 9: Portrait vs. Landscape
-Until now, we only implement the app based on a Portrait-position screen. We should implement the app in a Landscape screen as well. You can create a variable as `var orientation: UIDeviceOrientation = UIDevice.current.orientation` to check the current orientation of the screen and modify the UIView accordingly. `orientation.isLandscape` will return true if the screen is on a Landscape mode now. And `orientation == UIDeviceOrientation.portraitUpsideDown` will return true if now the screen is now upside down.  We will test your work by rotating the screen, we should see the position of game board and buttons are arranged well on each screen orientation.
+Until now, we only implement the app based on a Portrait-position
+screen. We should implement the app in a Landscape screen as well.
+You can create variables
+```
+@Environment(\.verticalSizeClass) var verticalSizeClass
+@Environment(\.horizontalSizeClass) var horizontalSizeClass
+```
+to check the current orientation of the screen and modify the View
+accordingly.  We will test your work by rotating the screen, we
+should see the position of game board and buttons are arranged well
+on each screen orientation.
 
 ## Grading
  Note that the above tasks are for sequencing your work. They do not match up exactly with this grading rubric:
@@ -185,18 +195,6 @@ Until now, we only implement the app based on a Portrait-position screen. We sho
 - 10: High Scores Page
 - 10: About Page with animation. 
 - 10: Orientations of Screen
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

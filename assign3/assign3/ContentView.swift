@@ -11,7 +11,6 @@ struct ContentView: View {
     
     @ObservedObject var game: Triples = Triples()
     @State var selectedGameMode: String = "Determ"
-//    @State var gameOverView: Bool = false
     
     var body: some View {
         ZStack {
@@ -20,13 +19,26 @@ struct ContentView: View {
                 ScoreView(score: game.score)
                 
                 GameBoard(board: game.board)
+                    .gesture(
+                        DragGesture(minimumDistance: 0, coordinateSpace: .local)
+                            .onEnded({ value in
+                                if value.translation.width < 0 {
+                                    game.collapse(dir: .left)
+                                } else if value.translation.width > 0 {
+                                    game.collapse(dir: .right)
+                                } else if value.translation.height < 0 {
+                                    game.collapse(dir: .up)
+                                } else if value.translation.height > 0 {
+                                    game.collapse(dir: .down)
+                                }
+                            })
+                    )
                 
                 NavButtonsView(game: game, gameOverView: game.isDone)
                 
                 Spacer()
                 
                 Button(action: {
-//                    gameOverView.toggle()
                     game.setIsDone(true)
                 }, label: {
                     Text("New Game")
@@ -48,35 +60,7 @@ struct ContentView: View {
             }
             
             if game.isDone {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 10.0)
-                        .fill(Color.white)
-                        .frame(width: 200, height: 180)
-                        .shadow(color: .black, radius: 30)
-                    
-                    VStack {
-                        Spacer()
-                        Text("😄")
-                            .font(.system(size: 32))
-                        Spacer()
-                        Text("Score: \(game.score)")
-                        Spacer()
-                        Button(action: {
-                            game.newgame(mode: selectedGameMode)
-//                            gameOverView.toggle()
-                        }, label: {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .fill(Color.red)
-                                    .frame(width: 60, height: 30)
-                                Text("Close")
-                                    .foregroundColor(.white)
-                            }
-                        })
-                        Spacer()
-                    }
-                    .frame(width: 200, height: 180)
-                }
+                GameOverView(game: game, selectedGameMode: selectedGameMode)
             }
         }
         
@@ -152,7 +136,7 @@ struct GameBoard: View {
             }
         }
             .border(Color.gray, width: 10)
-        .padding(.bottom, 20)
+            .padding(.bottom, 20)
     }
 }
 
@@ -195,6 +179,43 @@ struct NavButtonsView: View {
             Button (action: withAnimation { down }) {
                 NavButtonText(text: "Down")
             }.disabled(gameOverView)
+        }
+    }
+}
+
+struct GameOverView: View {
+    var game: Triples
+    var selectedGameMode: String
+    
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 10.0)
+                .fill(Color.white)
+                .frame(width: 200, height: 180)
+                .shadow(color: .black, radius: 30)
+            
+            VStack {
+                Spacer()
+                Text("😄")
+                    .font(.system(size: 32))
+                Spacer()
+                Text("Score: \(game.score)")
+                Spacer()
+                Button(action: {
+                    game.newgame(mode: selectedGameMode)
+                    //                            gameOverView.toggle()
+                }, label: {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.red)
+                            .frame(width: 60, height: 30)
+                        Text("Close")
+                            .foregroundColor(.white)
+                    }
+                })
+                Spacer()
+            }
+            .frame(width: 200, height: 180)
         }
     }
 }

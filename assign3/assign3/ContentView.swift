@@ -10,38 +10,76 @@ import SwiftUI
 struct ContentView: View {
     
     @ObservedObject var game: Triples = Triples()
-    @State var selectedGameMode: String = "Random"
+    @State var selectedGameMode: String = "Determ"
+//    @State var gameOverView: Bool = false
     
     var body: some View {
-        VStack {
-            ScoreView(score: game.score)
+        ZStack {
             
-            GameBoard(board: game.board)
+            VStack {
+                ScoreView(score: game.score)
+                
+                GameBoard(board: game.board)
+                
+                NavButtonsView(game: game, gameOverView: game.isDone)
+                
+                Spacer()
+                
+                Button(action: {
+//                    gameOverView.toggle()
+                    game.setIsDone(true)
+                }, label: {
+                    Text("New Game")
+                        .frame(width: 200, height: 60)
+                        .font(.system(size: 20, weight: .bold))
+                        .border(Color.gray, width: 5)
+                        .cornerRadius(10)
+                }).disabled(game.isDone)
+                
+                Picker("GameMode", selection: $selectedGameMode) {
+                    ForEach(["Random", "Determ"], id:\.self) {
+                        mode in Text(mode)
+                    }
+                }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .frame(width: 320, height: 60)
+                
+                Spacer()
+            }
             
-            NavButtonsView(game: game)
-            
-            Spacer()
-            
-            Button(action: {
-                game.newgame(mode: selectedGameMode)
-            }, label: {
-                Text("New Game")
-                    .frame(width: 200, height: 60)
-                    .font(.system(size: 20, weight: .bold))
-                    .border(Color.gray, width: 5)
-                    .cornerRadius(10)
-            })
-            
-            Picker("GameMode", selection: $selectedGameMode) {
-                ForEach(["Random", "Determ"], id:\.self) {
-                    mode in Text(mode)
+            if game.isDone {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10.0)
+                        .fill(Color.white)
+                        .frame(width: 200, height: 180)
+                        .shadow(color: .black, radius: 30)
+                    
+                    VStack {
+                        Spacer()
+                        Text("😄")
+                            .font(.system(size: 32))
+                        Spacer()
+                        Text("Score: \(game.score)")
+                        Spacer()
+                        Button(action: {
+                            game.newgame(mode: selectedGameMode)
+//                            gameOverView.toggle()
+                        }, label: {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(Color.red)
+                                    .frame(width: 60, height: 30)
+                                Text("Close")
+                                    .foregroundColor(.white)
+                            }
+                        })
+                        Spacer()
+                    }
+                    .frame(width: 200, height: 180)
                 }
             }
-                .pickerStyle(SegmentedPickerStyle())
-                .frame(width: 320, height: 60)
-            
-            Spacer()
         }
+        
     }
 }
 
@@ -66,43 +104,49 @@ struct ScoreView: View {
 
 struct TileView: View {
     
-    var tile: Tile?
+    var tile: Tile
     
     var body: some View {
-        if tile == nil {
+        if tile.val == 0 {
             Text("")
                 .frame(width: 80, height: 80)
                 .border(Color.gray, width: 5)
                 .background(Color.white)
-        } else if tile!.val == 1 {
-            Text("\(tile!.val)")
+        } else if tile.val == 1 {
+            Text("\(tile.val)")
                 .frame(width: 80, height: 80)
                 .border(Color.gray, width: 5)
                 .background(Color.blue)
-        } else if tile!.val == 2 {
-            Text("\(tile!.val)")
+        } else if tile.val == 2 {
+            Text("\(tile.val)")
                 .frame(width: 80, height: 80)
                 .border(Color.gray, width: 5)
                 .background(Color.red)
         } else {
-            Text("\(tile!.val)")
+            Text("\(tile.val)")
                 .frame(width: 80, height: 80)
                 .border(Color.gray, width: 5)
                 .background(Color.yellow)
         }
+        
     }
 }
 
+//tiles[i][j]
+//        .offset(x: currentX[i][j], y: currentY[i][j])
+//        .animation(game.animate ? .easeInOut(duration: 1) : .none)
+
 struct GameBoard: View {
     
-    var board: [[Tile?]]
+    var board: [[Tile]]
     
     var body: some View {
         VStack{
-            ForEach(board, id:\.self) {
-                row in HStack(spacing: 0) {
+            ForEach(board, id:\.self) { row in
+                HStack(spacing: 0) {
                     ForEach(row, id:\.self) { tile in
                         TileView(tile: tile)
+                            .animation(.easeInOut(duration: 1))
                     }
                 }
             }
@@ -127,32 +171,30 @@ struct NavButtonText: View {
 
 struct NavButtonsView: View {
     var game: Triples
+    var gameOverView: Bool
+    
+    func up() { game.collapse(dir: .up) }
+    func down() { game.collapse(dir: .down) }
+    func left() { game.collapse(dir: .left) }
+    func right() { game.collapse(dir: .right) }
     
     var body: some View {
         VStack(spacing: 10) {
-            Button (action: {
-                game.collapse(dir: .up)
-            }, label: {
+            Button (action: withAnimation { up }) {
                 NavButtonText(text: "Up")
-            })
+            }.disabled(gameOverView)
             HStack(spacing: 20) {
-                Button (action: {
-                    game.collapse(dir: .left)
-                }, label: {
+                Button (action: withAnimation { left }) {
                     NavButtonText(text: "Left")
-                })
+                }.disabled(gameOverView)
                 
-                Button (action: {
-                    game.collapse(dir: .right)
-                }, label: {
+                Button (action: withAnimation { right }) {
                     NavButtonText(text: "Right")
-                })
+                }.disabled(gameOverView)
             }
-            Button (action: {
-                game.collapse(dir: .down)
-            }, label: {
+            Button (action: withAnimation { down }) {
                 NavButtonText(text: "Down")
-            })
+            }.disabled(gameOverView)
         }
     }
 }

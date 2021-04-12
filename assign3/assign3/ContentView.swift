@@ -9,6 +9,32 @@ import SwiftUI
 
 struct ContentView: View {
     
+    var body: some View {
+        
+        TabView {
+            MainView().tabItem {
+                Label("Board", systemImage: "gamecontroller")
+            }
+            Text("Scores").tabItem {
+                Label("Scores", systemImage: "list.dash")
+            }
+            Text("About").tabItem {
+                Label("About", systemImage: "info.circle")
+            }
+        }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            ContentView()
+        }
+    }
+}
+
+struct MainView: View {
+    
     @ObservedObject var game: Triples = Triples()
     @State var selectedGameMode: String = "Determ"
     
@@ -16,6 +42,7 @@ struct ContentView: View {
         ZStack {
             
             VStack {
+                Spacer(minLength: 10)
                 ScoreView(score: game.score)
                 
                 GameBoard(board: game.board)
@@ -36,7 +63,7 @@ struct ContentView: View {
                 
                 NavButtonsView(game: game, gameOverView: game.isDone)
                 
-                Spacer()
+                Spacer(minLength: 20)
                 
                 Button(action: {
                     game.setIsDone(true)
@@ -56,21 +83,13 @@ struct ContentView: View {
                     .pickerStyle(SegmentedPickerStyle())
                     .frame(width: 320, height: 60)
                 
-                Spacer()
+                Spacer(minLength: 30)
+
             }
             
             if game.isDone {
                 GameOverView(game: game, selectedGameMode: selectedGameMode)
             }
-        }
-        
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            ContentView()
         }
     }
 }
@@ -146,7 +165,7 @@ struct NavButtonText: View {
     
     var body: some View {
         Text(text)
-            .frame(width: 100, height: 60)
+            .frame(width: 100, height: 50)
             .font(.system(size: 20, weight: .bold))
             .border(Color.gray, width: 5)
             .cornerRadius(10)
@@ -163,7 +182,7 @@ struct NavButtonsView: View {
     func right() { game.collapse(dir: .right) }
     
     var body: some View {
-        VStack(spacing: 10) {
+        VStack(spacing: 5) {
             Button (action: withAnimation { up }) {
                 NavButtonText(text: "Up")
             }.disabled(gameOverView)

@@ -9,20 +9,15 @@ import SwiftUI
 
 struct ContentView: View {
     
-    var testScores: [Score] = [
-        Score(score: 300, time: Date()),
-        Score(score: 250, time: Date()),
-        Score(score: 200, time: Date()),
-        Score(score: 180, time: Date())
-    ]
+    @ObservedObject var game: Triples = Triples()
     
     var body: some View {
         
         TabView {
-            MainView().tabItem {
+            MainView(game: game).tabItem {
                 Label("Board", systemImage: "gamecontroller")
             }
-            HighScoresView(scores: testScores).tabItem {
+            HighScoresView(scores: game.highScores.sorted{$0.score > $1.score}).tabItem {
                 Label("Scores", systemImage: "list.dash")
             }
             Text("About").tabItem {
@@ -42,8 +37,8 @@ struct ContentView_Previews: PreviewProvider {
 
 struct MainView: View {
     
-    @ObservedObject var game: Triples = Triples()
-    @State var selectedGameMode: String = "Determ"
+    @ObservedObject var game: Triples
+    @State var selectedGameMode: String = "Random"
     
     @Environment(\.verticalSizeClass) var verticalSizeClass
     
@@ -53,8 +48,8 @@ struct MainView: View {
                 VStack {
                     Spacer(minLength: 10)
                     ScoreView(score: game.score)
-                    
-                    GameBoard(board: game.board, tileSize: 80)
+                    Spacer()
+                    GameBoard(board: game.board, game: game, tileSize: 80)
                         .gesture(
                             DragGesture(minimumDistance: 0, coordinateSpace: .local)
                                 .onEnded({ value in
@@ -70,6 +65,7 @@ struct MainView: View {
                                 })
                         )
                     
+                    Spacer()
                     NavButtonsView(game: game, gameOverView: game.isDone, buttonWidth: 100, buttonHeight: 50)
                     
                     Spacer(minLength: 20)
@@ -104,7 +100,7 @@ struct MainView: View {
                         Spacer()
                         VStack {
                             
-                            GameBoard(board: game.board, tileSize: 60)
+                            GameBoard(board: game.board, game: game, tileSize: 60)
                                 .gesture(
                                     DragGesture(minimumDistance: 0, coordinateSpace: .local)
                                         .onEnded({ value in
@@ -155,40 +151,8 @@ struct MainView: View {
                 }
             }
             
-            
             if game.isDone {
                 GameOverView(game: game, selectedGameMode: selectedGameMode)
-            }
-        }
-    }
-}
-
-struct HighScoresView: View {
-    var scores: [Score]
-    let dateFormatter = DateFormatter()
-    
-    init(scores: [Score]) {
-        self.scores = scores
-        createDateFormatter()
-    }
-    func createDateFormatter() {
-        dateFormatter.dateFormat = "HH:mm:ss, d MMM y"
-    }
-    
-    var body: some View {
-        VStack {
-            Text("Highest Scores")
-                .bold()
-                .font(.title)
-            
-            List {
-                ForEach(scores) { score in
-                    HStack {
-                        Text("\(score.score)")
-                        Spacer()
-                        Text("\(dateFormatter.string(from: score.time))")
-                    }
-                }
             }
         }
     }
@@ -202,62 +166,6 @@ struct ScoreView: View {
         Text("Score: \(score)")
             .font(.title)
             .padding()
-    }
-}
-
-struct TileView: View {
-    
-    var tile: Tile
-    var tileSize: CGFloat
-    
-    var body: some View {
-        if tile.val == 0 {
-            Text("")
-                .frame(width: tileSize, height: tileSize)
-                .border(Color.gray, width: 5)
-                .background(Color.white)
-        } else if tile.val == 1 {
-            Text("\(tile.val)")
-                .frame(width: tileSize, height: tileSize)
-                .border(Color.gray, width: 5)
-                .background(Color.blue)
-        } else if tile.val == 2 {
-            Text("\(tile.val)")
-                .frame(width: tileSize, height: tileSize)
-                .border(Color.gray, width: 5)
-                .background(Color.red)
-        } else {
-            Text("\(tile.val)")
-                .frame(width: tileSize, height: tileSize)
-                .border(Color.gray, width: 5)
-                .background(Color.yellow)
-        }
-        
-    }
-}
-
-//tiles[i][j]
-//        .offset(x: currentX[i][j], y: currentY[i][j])
-//        .animation(game.animate ? .easeInOut(duration: 1) : .none)
-
-struct GameBoard: View {
-    
-    var board: [[Tile]]
-    var tileSize: CGFloat
-    
-    var body: some View {
-        VStack{
-            ForEach(board, id:\.self) { row in
-                HStack(spacing: 0) {
-                    ForEach(row, id:\.self) { tile in
-                        TileView(tile: tile, tileSize: tileSize)
-                            .animation(.easeInOut(duration: 1))
-                    }
-                }
-            }
-        }
-            .border(Color.gray, width: 10)
-            .padding(.bottom, 20)
     }
 }
 

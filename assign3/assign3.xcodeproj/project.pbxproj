@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0D60556F2624E07500988DCA /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D60556E2624E07500988DCA /* Score.swift */; };
+		0D6055732625791700988DCA /* HighScoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6055722625791700988DCA /* HighScoresView.swift */; };
+		0D605577262584C000988DCA /* GameBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D605576262584C000988DCA /* GameBoardView.swift */; };
 		0DAC016126151C750083A59E /* assign3App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAC016026151C750083A59E /* assign3App.swift */; };
 		0DAC016326151C750083A59E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAC016226151C750083A59E /* ContentView.swift */; };
 		0DAC016526151C770083A59E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DAC016426151C770083A59E /* Assets.xcassets */; };
@@ -19,6 +21,8 @@
 
 /* Begin PBXFileReference section */
 		0D60556E2624E07500988DCA /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
+		0D6055722625791700988DCA /* HighScoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoresView.swift; sourceTree = "<group>"; };
+		0D605576262584C000988DCA /* GameBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoardView.swift; sourceTree = "<group>"; };
 		0DAC015D26151C750083A59E /* assign3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = assign3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DAC016026151C750083A59E /* assign3App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = assign3App.swift; sourceTree = "<group>"; };
 		0DAC016226151C750083A59E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -62,6 +66,8 @@
 			children = (
 				0DAC016026151C750083A59E /* assign3App.swift */,
 				0DAC016226151C750083A59E /* ContentView.swift */,
+				0D605576262584C000988DCA /* GameBoardView.swift */,
+				0D6055722625791700988DCA /* HighScoresView.swift */,
 				0DBF3B06261CDF7C0031D2F2 /* Triples.swift */,
 				0DBF3B0A261CE09E0031D2F2 /* model.swift */,
 				0D60556E2624E07500988DCA /* Score.swift */,
@@ -152,6 +158,8 @@
 			files = (
 				0DAC016326151C750083A59E /* ContentView.swift in Sources */,
 				0DBF3B07261CDF7C0031D2F2 /* Triples.swift in Sources */,
+				0D6055732625791700988DCA /* HighScoresView.swift in Sources */,
+				0D605577262584C000988DCA /* GameBoardView.swift in Sources */,
 				0DBF3B0E261CE16F0031D2F2 /* Tile.swift in Sources */,
 				0DAC016126151C750083A59E /* assign3App.swift in Sources */,
 				0D60556F2624E07500988DCA /* Score.swift in Sources */,

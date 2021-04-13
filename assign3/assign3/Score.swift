@@ -15,9 +15,4 @@ struct Score: Hashable, Identifiable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(time)
     }
-    
-    init(score: Int, time: Date) {
-        self.score = score
-        self.time = time
-    }
 }

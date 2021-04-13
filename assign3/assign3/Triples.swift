@@ -9,6 +9,10 @@ import Foundation
 
 class Triples: ObservableObject {
     @Published var board: [[Tile]]
+    @Published var highScores: [Score] = [
+        Score(score: 300, time: Date()),
+        Score(score: 400, time: Date())
+    ]
     @Published var score: Int
     @Published var isDone: Bool
     var seededGenerator: SeededGenerator
@@ -18,10 +22,15 @@ class Triples: ObservableObject {
         score = 0
         isDone = false
         seededGenerator = SeededGenerator()
-        newgame(mode: "Determ")
+        newgame(mode: "Random")
     }
     
-    func newgame(mode: String) {                   // re-inits 'board', and any other state you define
+    // re-inits 'board', and any other state you define
+    func newgame(mode: String) {
+        if score != 0 {
+            highScores.append(Score(score: self.score, time: Date()))
+        }
+        
         if mode == "Determ" {
             seededGenerator = SeededGenerator(seed: 14)
         } else {
@@ -42,6 +51,16 @@ class Triples: ObservableObject {
         spawn()
         spawn()
         spawn()
+    }
+    
+    func flattenBoard() -> [Tile] {
+        var res: [Tile] = []
+        for row in board {
+            for tile in row {
+                res.append(tile)
+            }
+        }
+        return res
     }
     
     func countEmpty() -> [Int: (Int, Int)] {
@@ -68,7 +87,8 @@ class Triples: ObservableObject {
         score += val
     }
     
-    func rotate() {                    // rotate a square 2D Int array clockwise
+    // rotate a square 2D Int array clockwise
+    func rotate() {
         board = rotate2D(input: board)
     }
     
@@ -95,21 +115,8 @@ class Triples: ObservableObject {
         isDone = newIsDone
     }
     
-    // shiftAxis: either y or x axis to accomadate the shift and adjust the row and col
-    // shiftDir: either 1 or -1 which tells wether to increment or decrement
-    func updateRowCol(shiftAxis: String, shiftDir: Int, currRow: Int, currCol: Int) {
-        if shiftAxis == "y" && shiftDir > 0 {
-            board[currRow][currCol].row += 1
-        } else if shiftAxis == "y" && shiftDir < 0 {
-            board[currRow][currCol].row -= 1
-        } else if shiftAxis == "x" && shiftDir > 0 {
-            board[currRow][currCol].col += 1
-        } else if shiftAxis == "x" && shiftDir < 0 {
-            board[currRow][currCol].row -= 1
-        }
-    }
-    
-    func shift(shiftAxis: String, shiftDir: Int) -> Bool {                     // collapse to the left
+    // collapse to the left
+    func shift(shiftAxis: String, shiftDir: Int) -> Bool {
         let N = board.count
         var collapsed = false
         for x in 0...N-1 {
@@ -124,8 +131,6 @@ class Triples: ObservableObject {
                         // tile not shifted
                         board[x][i] = board[x][i]
                     } else {
-                        // update row and col
-//                        updateRowCol(shiftAxis: shiftAxis, shiftDir: shiftDir, currRow: board[x][i+1].row, currCol: board[x][i+1].col)
                         board[x][i] = board[x][i+1]
                     }
                 } else {
@@ -177,6 +182,14 @@ class Triples: ObservableObject {
         if collapsed {
             spawn()
         }
+        // update row and col
+        for i in 0..<4 {
+            for j in 0..<4 {
+                board[i][j].row = i
+                board[i][j].col = j
+            }
+        }
+        
         isDone = isGameDone()
 //        printBoard()
     }

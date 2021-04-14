@@ -79,7 +79,7 @@ class Triples: ObservableObject {
     
     func spawn() {
         let res = countEmpty()
-//        print(res.sorted(by: { $0.0 < $1.0 }), res.keys.max()!)
+        //        print(res.sorted(by: { $0.0 < $1.0 }), res.keys.max()!)
         let val = Int.random(in: 1...2, using: &seededGenerator)
         let pos = Int.random(in: 0...res.keys.max()!, using: &seededGenerator)
         let (x, y) = res[pos]!
@@ -126,58 +126,46 @@ class Triples: ObservableObject {
             }
             if i < N-1 {
                 collapsed = true
-                if board[x][i].val == 0 || board[x][i+1].val == 0 {
-                    if board[x][i].val != 0 {
-                        // tile not shifted
-                        board[x][i] = board[x][i]
-                    } else {
-                        board[x][i] = board[x][i+1]
-                    }
-                } else {
-                    board[x][i+1].val += board[x][i].val
-                    board[x][i+1].row = board[x][i].row
-                    board[x][i+1].col = board[x][i].col
-                    board[x][i] = board[x][i+1]
-                    score += board[x][i].val
-                }
+                board[x][i+1].val += board[x][i].val
+                board[x][i] = board[x][i+1]
+                score += board[x][i].val
                 i += 1
                 if i < N-1 {
                     for y in i...N-2 {
                         board[x][y] = board[x][y+1]
                     }
                 }
-                let rowForNew = board[x][N-2].row
-                let colForNew = board[x][N-2].col + 1
-                board[x][N-1] = Tile(val: 0, row: rowForNew, col: colForNew)
+                board[x][N-1] = Tile(val: 0, row: 0, col: 0)
+                // row and col for every tile will be reset at collapse
             }
         }
         return collapsed
     }
-
+    
     
     func collapse(dir: Direction) {     // collapse in specified direction using shift() and rotate()
         var collapsed = false
         switch dir {
-            case .left:
-                collapsed = shift(shiftAxis: "x", shiftDir: -1)
-            case .right:
-                rotate()
-                rotate()
-                collapsed = shift(shiftAxis: "x", shiftDir: 1)
-                rotate()
-                rotate()
-            case .up:
-                rotate()
-                rotate()
-                rotate()
-                collapsed = shift(shiftAxis: "y", shiftDir: 1)
-                rotate()
-            case .down:
-                rotate()
-                collapsed = shift(shiftAxis: "y", shiftDir: -1)
-                rotate()
-                rotate()
-                rotate()
+        case .left:
+            collapsed = shift(shiftAxis: "x", shiftDir: -1)
+        case .right:
+            rotate()
+            rotate()
+            collapsed = shift(shiftAxis: "x", shiftDir: 1)
+            rotate()
+            rotate()
+        case .up:
+            rotate()
+            rotate()
+            rotate()
+            collapsed = shift(shiftAxis: "y", shiftDir: 1)
+            rotate()
+        case .down:
+            rotate()
+            collapsed = shift(shiftAxis: "y", shiftDir: -1)
+            rotate()
+            rotate()
+            rotate()
         }
         if collapsed {
             spawn()
@@ -200,7 +188,7 @@ class Triples: ObservableObject {
             print("[", terminator:"")
             for j in 0..<board[i].count {
                 let b = board[i][j]
-                print("(val: \(b.val), row: \(b.row), col: \(b.col))", terminator:"")
+                print("(val: \(b.val), (\(b.id)) | ", terminator:"")
             }
             print("]")
         }

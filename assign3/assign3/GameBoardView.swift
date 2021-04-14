@@ -28,7 +28,7 @@ struct GameBoard: View {
                     } else {
                         TileView(tile: tile, tileSize: tileSize)
                             .offset(CGSize(width: Int(tileSize) * tile.col, height: Int(tileSize) * tile.row))
-                            .animation(.easeInOut(duration: 1))
+                            .animation(.easeInOut(duration: 0.5))
                     }
                 }
                 .offset(CGSize(width: tileSize == 80 ? -120 : -90, height: tileSize == 80 ? -120 : -90))

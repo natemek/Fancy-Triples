@@ -20,7 +20,7 @@ struct ContentView: View {
             HighScoresView(scores: game.highScores.sorted{$0.score > $1.score}).tabItem {
                 Label("Scores", systemImage: "list.dash")
             }
-            Text("About").tabItem {
+            AboutView().tabItem {
                 Label("About", systemImage: "info.circle")
             }
         }

@@ -18,6 +18,7 @@ struct GameBoard: View {
             Rectangle()
                 .fill(Color.gray)
                 .frame(width: (tileSize * 4) + 10, height: (tileSize * 4) + 10)
+                .cornerRadius(10)
             
             ZStack {
                 ForEach (game.flattenBoard(), id: \.id) { tile in
@@ -41,10 +42,6 @@ struct TileView: View {
     
     var tile: Tile
     var tileSize: CGFloat
-    
-    func offsetSize() -> CGSize {
-        return CGSize(width: 50 * tile.row, height: 50 * tile.col)
-    }
     
     var body: some View {
         if tile.val == 0 {

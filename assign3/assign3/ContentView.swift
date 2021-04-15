@@ -52,29 +52,7 @@ struct MainView: View {
                     GameBoard(board: game.board, game: game, tileSize: 80)
                     
                     Spacer()
-                    NavButtonsView(game: game, gameOverView: game.isDone, buttonWidth: 100, buttonHeight: 50)
-                    
-                    Spacer(minLength: 20)
-                    
-                    Button(action: {
-                        game.setIsDone(true)
-                    }, label: {
-                        Text("New Game")
-                            .frame(width: 200, height: 60)
-                            .font(.system(size: 20, weight: .bold))
-                            .border(Color.gray, width: 5)
-                            .cornerRadius(10)
-                    }).disabled(game.isDone)
-                    
-                    Picker("GameMode", selection: $selectedGameMode) {
-                        ForEach(["Random", "Determ"], id:\.self) {
-                            mode in Text(mode)
-                        }
-                    }
-                        .pickerStyle(SegmentedPickerStyle())
-                        .frame(width: 320)
-                        .padding(.bottom, 30)
-
+                    NavButtonsView(game: game, gameOverView: game.isDone, selectedGameMode: $selectedGameMode, buttonWidth: 100, buttonHeight: 50)
                 }
             } else {
                 
@@ -92,28 +70,7 @@ struct MainView: View {
                         
                         VStack {
                             Spacer()
-                            NavButtonsView(game: game, gameOverView: game.isDone, buttonWidth: 80, buttonHeight: 40)
-                            
-                            Spacer()
-                            
-                            Button(action: {
-                                game.setIsDone(true)
-                            }, label: {
-                                Text("New Game")
-                                    .frame(width: 150, height: 40)
-                                    .font(.system(size: 20, weight: .bold))
-                                    .border(Color.gray, width: 5)
-                                    .cornerRadius(10)
-                            }).disabled(game.isDone)
-                            
-                            Picker("GameMode", selection: $selectedGameMode) {
-                                ForEach(["Random", "Determ"], id:\.self) {
-                                    mode in Text(mode)
-                                }
-                            }
-                                .pickerStyle(SegmentedPickerStyle())
-                                .frame(width: 180)
-                                .padding(.bottom, 30)
+                            NavButtonsView(game: game, gameOverView: game.isDone, selectedGameMode: $selectedGameMode, buttonWidth: 80, buttonHeight: 40)
                             Spacer()
                         }
                         
@@ -137,54 +94,6 @@ struct ScoreView: View {
         Text("Score: \(score)")
             .font(.title)
             .padding()
-    }
-}
-
-struct NavButtonText: View {
-    
-    var text: String
-    var buttonWidth: CGFloat
-    var buttonHeight: CGFloat
-    
-    var body: some View {
-        Text(text)
-            .frame(width: buttonWidth, height: buttonHeight)
-            .font(.system(size: 20, weight: .bold))
-            .border(Color.gray, width: 5)
-            .cornerRadius(10)
-    }
-}
-
-struct NavButtonsView: View {
-    var game: Triples
-    var gameOverView: Bool
-    
-    var buttonWidth: CGFloat
-    var buttonHeight: CGFloat
-    
-    func up() { game.collapse(dir: .up) }
-    func down() { game.collapse(dir: .down) }
-    func left() { game.collapse(dir: .left) }
-    func right() { game.collapse(dir: .right) }
-    
-    var body: some View {
-        VStack(spacing: 5) {
-            Button (action: withAnimation { up }) {
-                NavButtonText(text: "Up", buttonWidth: buttonWidth, buttonHeight: buttonHeight)
-            }.disabled(gameOverView)
-            HStack(spacing: 20) {
-                Button (action: withAnimation { left }) {
-                    NavButtonText(text: "Left", buttonWidth: buttonWidth, buttonHeight: buttonHeight)
-                }.disabled(gameOverView)
-                
-                Button (action: withAnimation { right }) {
-                    NavButtonText(text: "Right", buttonWidth: buttonWidth, buttonHeight: buttonHeight)
-                }.disabled(gameOverView)
-            }
-            Button (action: withAnimation { down }) {
-                NavButtonText(text: "Down", buttonWidth: buttonWidth, buttonHeight: buttonHeight)
-            }.disabled(gameOverView)
-        }
     }
 }
 

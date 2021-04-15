@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D1E59AE2627E84A00DE63EB /* NavButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1E59AD2627E84A00DE63EB /* NavButtonsView.swift */; };
 		0D60556F2624E07500988DCA /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D60556E2624E07500988DCA /* Score.swift */; };
 		0D6055732625791700988DCA /* HighScoresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D6055722625791700988DCA /* HighScoresView.swift */; };
 		0D605577262584C000988DCA /* GameBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D605576262584C000988DCA /* GameBoardView.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D1E59AD2627E84A00DE63EB /* NavButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavButtonsView.swift; sourceTree = "<group>"; };
 		0D60556E2624E07500988DCA /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
 		0D6055722625791700988DCA /* HighScoresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoresView.swift; sourceTree = "<group>"; };
 		0D605576262584C000988DCA /* GameBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoardView.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 			children = (
 				0DAC016026151C750083A59E /* assign3App.swift */,
 				0DAC016226151C750083A59E /* ContentView.swift */,
+				0D1E59AD2627E84A00DE63EB /* NavButtonsView.swift */,
 				0D605576262584C000988DCA /* GameBoardView.swift */,
 				0D60557926263F1500988DCA /* AboutView.swift */,
 				0D6055722625791700988DCA /* HighScoresView.swift */,
@@ -161,6 +164,7 @@
 			files = (
 				0DAC016326151C750083A59E /* ContentView.swift in Sources */,
 				0DBF3B07261CDF7C0031D2F2 /* Triples.swift in Sources */,
+				0D1E59AE2627E84A00DE63EB /* NavButtonsView.swift in Sources */,
 				0D6055732625791700988DCA /* HighScoresView.swift in Sources */,
 				0D605577262584C000988DCA /* GameBoardView.swift in Sources */,
 				0D60557A26263F1500988DCA /* AboutView.swift in Sources */,

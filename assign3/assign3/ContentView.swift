@@ -50,20 +50,6 @@ struct MainView: View {
                     ScoreView(score: game.score)
                     Spacer()
                     GameBoard(board: game.board, game: game, tileSize: 80)
-                        .gesture(
-                            DragGesture(minimumDistance: 0, coordinateSpace: .local)
-                                .onEnded({ value in
-                                    if value.translation.width < 0 {
-                                        game.collapse(dir: .left)
-                                    } else if value.translation.width > 0 {
-                                        game.collapse(dir: .right)
-                                    } else if value.translation.height < 0 {
-                                        game.collapse(dir: .up)
-                                    } else if value.translation.height > 0 {
-                                        game.collapse(dir: .down)
-                                    }
-                                })
-                        )
                     
                     Spacer()
                     NavButtonsView(game: game, gameOverView: game.isDone, buttonWidth: 100, buttonHeight: 50)
@@ -99,22 +85,7 @@ struct MainView: View {
                     HStack {
                         Spacer()
                         VStack {
-                            
                             GameBoard(board: game.board, game: game, tileSize: 60)
-                                .gesture(
-                                    DragGesture(minimumDistance: 0, coordinateSpace: .local)
-                                        .onEnded({ value in
-                                            if value.translation.width < 0 {
-                                                game.collapse(dir: .left)
-                                            } else if value.translation.width > 0 {
-                                                game.collapse(dir: .right)
-                                            } else if value.translation.height < 0 {
-                                                game.collapse(dir: .up)
-                                            } else if value.translation.height > 0 {
-                                                game.collapse(dir: .down)
-                                            }
-                                        })
-                                )
                         }
                         
                         Spacer(minLength: 10)
@@ -233,7 +204,7 @@ struct GameOverView: View {
                 Text("😄")
                     .font(.system(size: 32))
                 Spacer()
-                Text("Score: \(game.score)")
+                Text("Score: \(game.score)").foregroundColor(.black)
                 Spacer()
                 Button(action: {
                     game.newgame(mode: selectedGameMode)

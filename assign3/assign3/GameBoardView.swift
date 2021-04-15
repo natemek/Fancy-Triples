@@ -34,6 +34,24 @@ struct GameBoard: View {
                 .offset(CGSize(width: tileSize == 80 ? -120 : -90, height: tileSize == 80 ? -120 : -90))
             }
         }
+        .gesture(
+            DragGesture(minimumDistance: 50, coordinateSpace: .local)
+                .onEnded({ value in
+                    if (abs(value.startLocation.x - value.location.x) > abs(value.startLocation.y - value.location.y)){
+                        if value.startLocation.x > value.location.x {
+                            withAnimation {game.collapse(dir: Direction.left)}
+                        } else if value.startLocation.x < value.location.x {
+                            withAnimation {game.collapse(dir: Direction.right)}
+                        }
+                    }else{
+                        if value.startLocation.y < value.location.y {
+                            withAnimation {game.collapse(dir: Direction.down)}
+                        } else if value.startLocation.y > value.location.y {
+                            withAnimation {game.collapse(dir: Direction.up)}
+                        }
+                    }
+                })
+        )
         
     }
 }

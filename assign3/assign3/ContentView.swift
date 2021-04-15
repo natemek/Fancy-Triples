@@ -50,30 +50,24 @@ struct MainView: View {
                     ScoreView(score: game.score)
                     Spacer()
                     GameBoard(board: game.board, game: game, tileSize: 80)
-                    
                     Spacer()
                     NavButtonsView(game: game, gameOverView: game.isDone, selectedGameMode: $selectedGameMode, buttonWidth: 100, buttonHeight: 50)
                 }
             } else {
-                
                 VStack {
                     Spacer(minLength: 10)
                     ScoreView(score: game.score)
-                    
                     HStack {
                         Spacer()
                         VStack {
                             GameBoard(board: game.board, game: game, tileSize: 60)
                         }
-                        
                         Spacer(minLength: 10)
-                        
                         VStack {
                             Spacer()
                             NavButtonsView(game: game, gameOverView: game.isDone, selectedGameMode: $selectedGameMode, buttonWidth: 80, buttonHeight: 40)
                             Spacer()
                         }
-                        
                         Spacer()
                     }
                 }

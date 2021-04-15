@@ -51,13 +51,10 @@ public func rotate2D<T>(input: [[T]]) -> [[T]] {
             output[x][y] = input[N-1-y][x]
         }
     }
-    
     return output
 }
 
 public func collapsable(x: Int, y: Int) -> Bool {
-    // (board[x][i] != 0) && (i < N-2) && (board[x][i] != board[x][i+1]) &&
-    // (board[x][i] >= 3  || board[x][i+1] >= 3)
     if (x != y) && (x >= 3 || y >= 3) && (x != 0) && (y != 0) { // x = 3, y = 1
         return false
     } else if (x == y) && (x < 3) { // x = 1, y = 1

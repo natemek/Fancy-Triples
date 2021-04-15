@@ -9,7 +9,6 @@ import SwiftUI
 
 struct HighScoresView: View {
     var scores: [Score]
-//    var scores: [Score]
     let dateFormatter = DateFormatter()
     
     @State var testScores: [Score] = [
@@ -20,8 +19,6 @@ struct HighScoresView: View {
     ]
     
     init(scores: [Score]) {
-//        self.game = game
-//        self.scores = game.highScores.sorted{$0.score > $1.score}
         self.scores = scores
         createDateFormatter()
     }
@@ -46,21 +43,6 @@ struct HighScoresView: View {
                     }
                 }
             }
-//            List () {
-//                ForEach(0..<testScores.count, id: \.self) { i in
-//                    HStack {
-//                        Text("\(i+1)) \(testScores[i].score)")
-//                        Spacer()
-//                        Text("\(dateFormatter.string(from: testScores[i].time))")
-//                    }
-//                }
-//            }
-//            Button(action: {
-//                testScores.append(Score(score: 55, time: Date()))
-//                print(testScores)
-//            }, label: {
-//                Text("Button")
-//            })
         }
     }
 }

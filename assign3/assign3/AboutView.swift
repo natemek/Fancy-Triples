@@ -15,7 +15,6 @@ struct AboutView: View {
     
     @State var timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
     private var animation_ = Animation.easeInOut(duration: 1).repeatForever(autoreverses: true)
-//    private let animation = Animation.easeInOut(duration: 1)
     
     var body: some View {
         NavigationView {

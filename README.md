@@ -12,7 +12,9 @@ Learn to use:
 * user defaults
 * dynamic animations
 
-## Task 1: Create a Tile Model
+## Progress
+
+- [ ] Task 1: Create a Tile Model
 
 Create a data tructure like this:
 
@@ -27,11 +29,11 @@ struct Tile: Identifiable {
 
 `val` represents the value to be shown on the board, `id` is an unique id for this tile. Also include `row` and `col` to represent the location of this Tile on the board. Then, the `board` triples class will change from [[Int]] to [[Tile]]. 
 
-## Task 2: Change View to use TileView
+- [ ] Task 2: Change View to use TileView
 
-## Task 3: Animation
+- [ ] Task 3: Animation
 
-## Task 4: End of Game
+- [ ] Task 4: End of Game
 
 When will the game end?
 
@@ -45,14 +47,14 @@ What will happen after the game ends?
 
 A window should pop up to show the final score of current play. You can use `ZStack` to implement this view. By clicking the "Close" button should start a new game. Every time a game ends, the score should be recorded, this will be discussed in later task.
 
-## Task 5: Gestures
+- [ ] Task 5: Gestures
 
 Add up, down, left, and right drag gestures to the board. Each direction gesture should work exactly the same as cliking the direction buttom.  
 
-## Task 6: TabView
+- [ ] Task 6: TabView
 
-## Task 7: Implement the *HighScores* Page
+- [ ] Task 7: Implement the *HighScores* Page
 
-## Task 8: Implement the *About* Page with Fancy  Animation
+- [ ] Task 8: Implement the *About* Page with Fancy  Animation
 
-## Task 9: Portrait vs. Landscape
+- [ ] Task 9: Portrait vs. Landscape
